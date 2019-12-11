@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="media">
+                    <img src="assets/pictures/question.jpg" class="mr-3 choicePicture" id="opponentPicture" alt="...">
+                    <div class="media-body">
+                        <h5 class="mt-0">Opponent's Choice</h5>
+                        <p id="opponentChoice">Waiting For Selection...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <h1 id="result">VS</h1>
+            </div>
+            <div class="col-6">
+                <h3>Your Score:</h3>
+                <p id="myScore">0</p>
+                <br/>
+                <h3>Opponent's Score</h3>
+                <p id="opponentsScore">0</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="media">
+                    <img src="assets/pictures/question.jpg" class="mr-3 choicePicture" id="yourPicture" alt="...">
+                    <div class="media-body">
+                        <h5 class="mt-0">Your Choice</h5>
+                        <p id="yourChoice">Waiting For Selection...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="button" onclick="choiceRock()" class="btn btn-dark">Rock</button>
+        <button type="button" onclick="choicePaper()" class="btn btn-dark">Paper</button>
+        <button type="button" onclick="choiceScissors()" class="btn btn-dark">Scissors</button>
+
+    </div>
+
+    <script>
+        var options = ["rock", "paper", "scissors"];
+        var myScore=0;
+        var oScore=0;
+        var result = "";
+        function choiceRock() {
+            console.log("Rock");
+            document.getElementById("yourPicture").src = "assets/pictures/rock.jfif";
+            document.getElementById("yourChoice").textContent = "You Chose Rock";
+            runGame("rock");
+        }
+
+        function choicePaper() {
+            console.log("Paper");
+            document.getElementById("yourPicture").src = "assets/pictures/paper.jfif";
+            document.getElementById("yourChoice").textContent = "You Chose Paper";
+            runGame("paper");
+        }
+
+        function choiceScissors() {
+            console.log("Scissors");
+            document.getElementById("yourPicture").src = "assets/pictures/scissors.jfif";
+            document.getElementById("yourChoice").textContent = "You Chose Scissors";
+            runGame("scissors");
+        }
+
+        function runGame(choice) {
+            var oChoice = options[randomChoice()];
+ 
+            console.log("your choice is: " + choice);
+            console.log("your opponent's choice is: " + oChoice);
+
+            if (oChoice === "rock") {
+                document.getElementById("opponentPicture").src = "assets/pictures/rock.jfif";
+                document.getElementById("opponentChoice").textContent = "Your Opponent Chose Rock";
+                switch (choice) {
+                    case "rock":
+                        console.log("It's a Tie");
+                        document.getElementById("result").textContent = "It's a Tie";
+                        break;
+                    case "paper":
+                        console.log("You Win!");
+                        document.getElementById("result").textContent = "You Win!";
+                        myScore++;
+                        keepScore("m");
+
+                        break;
+                    case "scissors":
+                        console.log("You Lose!");
+                        document.getElementById("result").textContent = "You Lose!";
+                        oScore++;
+                        keepScore("l");
+
+                        break;
+                }//switch
+            }//if rock
+
+            else if (oChoice === "paper") {
+                document.getElementById("opponentPicture").src = "assets/pictures/paper.jfif";
+                document.getElementById("opponentChoice").textContent = "Your Opponent Chose Paper";
+                switch (choice) {
+                    case "rock":
+                        console.log("You Lose!");
+                        document.getElementById("result").textContent = "You Lose!";
+                        oScore++;
+                        keepScore("l");
+
+                        break;
+                    case "paper":
+                        console.log("It's a Tie");
+                        document.getElementById("result").textContent = "It's a Tie";
+
+                        break;
+                    case "scissors":
+                        console.log("You Win!");
+                        document.getElementById("result").textContent = "You Win!";
+                        myScore++;
+                        keepScore("m");
+
+                        break;
+                }//switch
+            }//if paper
+
+            else {
+                document.getElementById("opponentPicture").src = "assets/pictures/scissors.jfif";
+                document.getElementById("opponentChoice").textContent = "Your Opponent Chose Scissors";
+                switch (choice) {
+                    case "rock":
+                        console.log("You Win!");
+                        document.getElementById("result").textContent = "You Win!";
+                        myScore++;
+                        keepScore("m");
+
+                        break;
+                    case "paper":
+                        console.log("You Lose!");
+                        document.getElementById("result").textContent = "You Lose!";
+                        oScore++;
+                        keepScore("l");
+
+                        break;
+                    case "scissors":
+                        console.log("It's a Tie");
+                        document.getElementById("result").textContent = "It's a Tie";
+
+                        break;
+                }//switch
+            }//if scissors
+
+        }
+
+        function randomChoice() {
+            return Math.floor(Math.random() * Math.floor(3));
+        }
+
+        function keepScore(winner){
+            if(winner==="m"){
+                document.getElementById("myScore").textContent=myScore.toString();
+            }
+            else{
+                document.getElementById("opponentsScore").textContent=oScore.toString();
+
+            }
+        }
+    </script>
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
